@@ -1,7 +1,6 @@
 import useSWR from 'swr'
-import { fetcher } from '../libs/fetch'
 
-const API = 'http://192.168.0.91:8080/'
+const API = process.env.NEXT_PUBLIC_API
 export const TASKS_KEY = API + 'v1/postgres'
 
 export interface Task {
