@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { SWRConfig } from 'swr'
 import { TaskList } from '../components/TaskList'
@@ -22,7 +22,7 @@ const Home: NextPage = ({ fallback }: any) => {
 
 export default Home
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   const tasks = await fetcher(TASKS_KEY)
 
   return {

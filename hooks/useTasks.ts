@@ -10,7 +10,7 @@ export interface Task {
 }
 
 export function useTasks() {
-  const { data, error } = useSWR<Task[]>(TASKS_KEY, fetcher)
+  const { data, error } = useSWR<Task[]>(TASKS_KEY)
 
   return {
     tasks: data,
