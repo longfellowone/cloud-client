@@ -8,6 +8,7 @@ type Task = {
   id: number
   name: string
 }
+
 type Tasks = ReadonlyArray<Task>
 
 export const getTasks = async (): Promise<Tasks> => {
