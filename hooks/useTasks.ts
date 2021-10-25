@@ -1,19 +1,24 @@
-import useSWR from 'swr'
+import ky from 'ky'
+import { useQuery } from 'react-query'
 
-const API = process.env.NEXT_PUBLIC_API
-export const TASKS_KEY = API + 'v1/postgres'
+export const TASKS_KEY = 'v1/postgres'
 
-export interface Task {
+// type State = 'all' | 'open' | 'done'
+type Task = {
   id: number
   name: string
 }
+type Tasks = ReadonlyArray<Task>
 
-export function useTasks() {
-  const { data, error } = useSWR<Task[]>(TASKS_KEY)
+export const getTasks = async (): Promise<Tasks> => {
+  return await ky.get(process.env.NEXT_PUBLIC_API + TASKS_KEY).json()
+}
+
+export const useTasks = () => {
+  const { data, error } = useQuery<Tasks>(TASKS_KEY, getTasks)
 
   return {
-    tasks: data,
-    isLoading: !error && !data,
-    isError: error,
+    data,
+    error,
   }
 }

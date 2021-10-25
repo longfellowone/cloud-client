@@ -11,12 +11,7 @@ class MyDocument extends Document {
             crossOrigin="true"
           />
           <link
-            rel="preload"
-            as="style"
-            href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter&display=option"
             rel="stylesheet"
           />
         </Head>

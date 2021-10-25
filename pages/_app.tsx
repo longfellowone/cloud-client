@@ -1,17 +1,19 @@
 import 'tailwindcss/tailwind.css'
 import type { AppProps } from 'next/app'
-import { SWRConfig } from 'swr'
-import { fetcher } from '../libs/fetch'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { useState } from 'react'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const [queryClient] = useState(() => new QueryClient())
+
   return (
-    <SWRConfig
-      value={{
-        fetcher: fetcher,
-      }}
-    >
-      <Component {...pageProps} />
-    </SWRConfig>
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <Component {...pageProps} />
+      </Hydrate>
+      <ReactQueryDevtools initialIsOpen={true} />
+    </QueryClientProvider>
   )
 }
 

@@ -1,14 +1,13 @@
 import { useTasks } from '../hooks/useTasks'
 
 export const TaskList = () => {
-  const { tasks, isLoading, isError } = useTasks()
+  const { data, error } = useTasks()
 
-  if (isError) return <div>failed to load</div>
-  if (isLoading) return <div>loading...</div> // Could also use ternary operator
+  if (error) return <div>failed to load</div>
 
   return (
     <div>
-      {tasks?.map((task) => (
+      {data?.map((task) => (
         <div key={task.id}>
           {task.id} - {task.name}
         </div>
