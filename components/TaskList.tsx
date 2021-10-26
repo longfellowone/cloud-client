@@ -3,7 +3,7 @@ import { useTasks } from '../hooks/useTasks'
 const TaskList = () => {
   const tasks = useTasks()
 
-  if (tasks.isLoadingError) return <div>error: {tasks.error}</div>
+  if (tasks.isLoadingError) return <div>error</div>
 
   return (
     <div>

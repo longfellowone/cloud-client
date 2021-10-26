@@ -1,25 +1,33 @@
 import ky from 'ky'
-import { SyntheticEvent } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+
+type FormValues = {
+  name: string
+}
 
 const TaskForm = () => {
-  const handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault()
+  const { register, handleSubmit } = useForm<FormValues>()
 
-    const test = { id: '1', name: 'test post' }
+  const onSubmit: SubmitHandler<FormValues> = (form) => {
+    console.log(form)
 
-    const body = new URLSearchParams(test)
+    const newTask = { id: '1', name: form.name }
+    const body = new URLSearchParams(newTask)
 
     ky.post(process.env.NEXT_PUBLIC_API + 'v1/postgres', { body })
   }
 
   return (
     <div className="p-2">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="name" className="">
+          name:
+        </label>
         <input
           type="text"
-          name="name"
           id="name"
-          className="bg-gray-300 p-2 outline"
+          {...register('name')}
+          className="bg-gray-300 ml-2 p-2 outline"
         />
         <input type="submit" className="ml-2 p-2 bg-gray-300" />
       </form>
