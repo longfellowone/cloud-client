@@ -16,10 +16,5 @@ export const getTasks = async (): Promise<Tasks> => {
 }
 
 export const useTasks = () => {
-  const { data, error } = useQuery<Tasks>(TASKS_KEY, getTasks)
-
-  return {
-    data,
-    error,
-  }
+  return useQuery(TASKS_KEY, getTasks)
 }
