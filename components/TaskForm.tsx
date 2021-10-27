@@ -1,5 +1,6 @@
 import ky from 'ky'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid'
 
 type FormValues = {
   name: string
@@ -11,7 +12,7 @@ const TaskForm = () => {
   const onSubmit: SubmitHandler<FormValues> = (form) => {
     console.log(form)
 
-    const newTask = { id: '1', name: form.name }
+    const newTask = { id: uuidv4(), ...form }
     const body = new URLSearchParams(newTask)
 
     ky.post(process.env.NEXT_PUBLIC_API + 'v1/postgres', { body })
